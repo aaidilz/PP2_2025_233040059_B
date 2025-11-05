@@ -27,7 +27,7 @@ public class latihan3 {
                 JButton button = new JButton("Ini Button");
 
 
-                button.addActionListener(_ -> {
+                button.addActionListener(e -> {
                     label.setText("Button dipijit!");
                 });
                 frame.add(label);
