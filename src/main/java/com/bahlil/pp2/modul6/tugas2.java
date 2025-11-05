@@ -21,13 +21,13 @@ public class tugas2 {
 		JPanel panel = new JPanel(new GridLayout(3, 2, 5, 5));
 
 		JLabel labelC = new JLabel("Celcius:");
-		JTextField tfC = new JTextField();
+		JTextField textField = new JTextField();
 		JButton btnConvert = new JButton("Konversi");
 		JLabel labelF = new JLabel("Fahrenheit:");
 		JLabel labelResult = new JLabel("");
 
 		panel.add(labelC);
-		panel.add(tfC);
+		panel.add(textField);
 		panel.add(btnConvert);
 		panel.add(new JLabel());
 		panel.add(labelF);
@@ -36,7 +36,7 @@ public class tugas2 {
 		btnConvert.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String text = tfC.getText().trim();
+				String text = textField.getText().trim();
 				if (text.isEmpty()) {
 					labelResult.setText("Masukkan angka");
 					return;
@@ -51,7 +51,7 @@ public class tugas2 {
 			}
 		});
 
-		tfC.addActionListener(new ActionListener() {
+		textField.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btnConvert.doClick();
