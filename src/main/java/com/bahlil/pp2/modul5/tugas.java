@@ -13,7 +13,7 @@ import java.awt.BorderLayout;
  *
  * @author dilz
  */
-public class tugas1 {
+public class tugas {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
