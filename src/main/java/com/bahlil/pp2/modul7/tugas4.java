@@ -1,10 +1,10 @@
 package com.bahlil.pp2.modul7;
 
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-public class tugas1 extends JFrame {
+
+public class tugas4 extends JFrame {
 
     private JTextField inputNama;
     private JTextField inputNilai;
@@ -15,7 +15,7 @@ public class tugas1 extends JFrame {
 
     private JTabbedPane tabPane;
 
-    public tugas1() {
+    public tugas4() {
         setTitle("Manajemen Nilai Siswa");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +50,14 @@ public class tugas1 extends JFrame {
         JButton btnSimpan = new JButton("Simpan Data");
         btnSimpan.addActionListener(e -> prosesSimpan());
 
+        JButton btnReset = new JButton("Reset");
+        
+        btnReset.addActionListener(e -> {
+            inputNama.setText("");
+            inputNilai.setText(""); 
+            inputNama.requestFocus();
+        });
+
         panel.add(labelNama);
         panel.add(inputNama);
 
@@ -60,6 +68,7 @@ public class tugas1 extends JFrame {
         panel.add(inputMatkul);
 
         panel.add(btnSimpan);
+        panel.add(btnReset);
 
         return panel;
     }
@@ -68,14 +77,35 @@ public class tugas1 extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
 
         tableModel = new DefaultTableModel(
-                new Object[]{"Nama", "Nilai", "Mata Kuliah", "Grade"},
-                0
+            new Object[]{"Nama", "Nilai", "Mata Kuliah", "Grade"},
+            0
         );
 
         tableData = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(tableData);
 
         panel.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton btnHapus = new JButton("Hapus Data");
+        
+        btnHapus.addActionListener(e -> {
+            int selectedRow = tableData.getSelectedRow();
+            
+            if (selectedRow > -1) {
+                tableModel.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(this, 
+                        "Data berhasil dihapus!", 
+                        "Info", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                        "Pilih baris data yang ingin dihapus terlebih dahulu!", 
+                        "Peringatan", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        buttonPanel.add(btnHapus);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
 
         return panel;
     }
@@ -88,6 +118,13 @@ public class tugas1 extends JFrame {
         if (nama.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Nama tidak boleh kosong!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (nama.length() < 3) {
+            JOptionPane.showMessageDialog(this,
+                    "Nama harus terdiri dari minimal 3 karakter!",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -118,7 +155,7 @@ public class tugas1 extends JFrame {
             case 7:  grade = "C"; break;
             case 6:  grade = "D"; break;
             default: grade = "E"; break;
-        }   
+        }
 
         tableModel.addRow(new Object[]{
                 nama, nilai, matkul, grade
@@ -127,11 +164,15 @@ public class tugas1 extends JFrame {
         JOptionPane.showMessageDialog(this,
                 "Data berhasil disimpan!",
                 "Sukses", JOptionPane.INFORMATION_MESSAGE);
+        
+        inputNama.setText("");
+        inputNilai.setText("");
+        inputNama.requestFocus();
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new tugas1().setVisible(true);
+            new tugas4().setVisible(true);
         });
     }
 }
